@@ -1,0 +1,216 @@
+<div class="container" id="main-container">
+
+    <div class="container bootstrap">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12" 
+                *ngFor="let restaurant of restaurants | 
+                        paginate: { itemsPerPage: 12, currentPage: page, totalItems: totalLength }; 
+                        let i = resId"
+                        [class.active]="i == currentId"
+                        (click)="setActiveRestaurant(restaurant, i)">
+            
+                <div class="wp-block product">
+                    <figure>
+                        <img src="data:image/png;base64,{{restaurant?.resImage}}" class="img-responsive img-center" style="max-width:100%;">
+                    </figure>
+                    <h2 class="product-title"><a href="">{{restaurant?.resName}}</a></h2>
+                    <ul class="rating">
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star disable"></li>
+                        <li class="fa fa-star disable"></li>
+                    </ul>
+                    <p>
+                        Open :  {{restaurant?.resOpen}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Close :  {{restaurant?.resClose}}
+                    </p>
+                    
+                    <div class="wp-block-footer">
+                        
+                        <a routerLink="/restaurantdt/{{restaurant.resId}}" routerLinkActive="active" style="text-decoration: none;" class="btn btn-sm btn-info pull-left">
+                            &nbsp;detail
+                        </a>
+                        
+                        <a style="text-decoration: none;" class="btn btn-sm btn-warning btn-icon btn-cart pull-right" (click)="onOpenModall(null, 'booking')">
+                            <i class="fa fa-cart-plus"></i>
+                            &nbsp;book now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+                <pagination-controls class="text-right" (pageChange)="page = $event"></pagination-controls>
+
+
+            <br>
+            <br>
+            <br>
+           
+
+        </div>
+    </div>                
+
+
+<!-- Sign up Modal -->
+<div class="modal fade" id="userSignupModal" tabindex="-1" role="dialog" aria-labelledby="userSignupModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="userSignupModalLabel">Sign up</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onSignup(addForm)">
+            <div class="form-group">
+               <input type="text" ngModel name="firstname" class="form-control" id="firstname" placeholder="First Name" required>
+            </div>
+            <div class="form-group">               
+                <input type="text" ngModel name="lastname" class="form-control" id="lastname" placeholder="Last Name" required>
+             </div>
+             <div class="form-group">
+                <label for="birthday">Birthday</label>
+                <input type="date" ngModel name="birthday" class="form-control" id="birthday" required>
+             </div>
+             <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" ngModel name="gender" class="form-control"  required>
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+             </div>
+            <div class="form-group">              
+                <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="Telephone" required>
+             </div>
+            <div class="form-group">             
+               <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">             
+               <input type="text" ngModel name="username" class="form-control" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required>
+             </div>
+             <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" ngModel name="role" class="form-control"  required>
+                    <option value="User" selected>User</option>
+                    <option value="Staff">Staff</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Administrator">Administrator</option>
+                  </select>
+             </div>
+            
+            <div class="modal-footer">
+               <button type="button" id="add-user-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Sign up</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
+
+<!-- Sign in Modal -->
+<div class="modal fade" id="userSigninModal" tabindex="-1" role="dialog" aria-labelledby="userSigninModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="userSigninModalLabel">Sign in</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onSignin(addForm)">
+            <div class="form-group">
+               
+               <input type="text" ngModel name="username" class="form-control" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                
+                <input type="text" ngModel name="password" class="form-control" id="password" placeholder="Password" required>
+             </div>
+            
+            <div class="modal-footer">
+               <button type="button" id="user-signin-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Sign in</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
+    
+
+<!-- Booking Modal -->
+<div class="modal fade" id="userBookingModal" tabindex="-1" role="dialog" aria-labelledby="userBookingModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="userBookingModalLabel">Restaurant Reservation</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #addForm="ngForm" (ngSubmit)="onBooking(addForm)">
+             <div class="form-group">
+                <input type="text" ngModel={{currentRestaurant?.resId}} name="restaurantModel.resId" class="form-control" id="restaurantModel.resId" value={{currentRestaurant?.resId}} placeholder="Restaurant ID">
+                {{currentRestaurant?.resName}}
+            </div>
+           <div class="form-group">
+              <input type="text" ngModel name="bookName" class="form-control" id="bookName" placeholder="Booking Name" required>
+           </div>
+           <div class="form-group">
+               <input type="date" ngModel name="bookDate" class="form-control" id="bookDate" placeholder="Booking Date" required>
+            </div>
+            <div class="form-group">
+               <input type="time" ngModel name="bookTime" class="form-control" id="bookTime" placeholder="Booking Time" required>
+            </div>
+            <div class="form-group">
+               <input type="text" ngModel name="person" class="form-control" id="person" placeholder="Number of Person" required>
+            </div>
+            <div class="form-group">
+               <label for="occasion">Occasion</label>
+               <select id="occasion" ngModel name="occasion" class="form-control"  required>
+                       <option value="Lunch">Lunch</option>
+                       <option value="Dinner">Dinner</option>
+                       <option value="Birthday">Birthday</option>
+                       <option value="Anniversary">Anniversary</option>
+                       <option value="Wedding">Wedding</option>
+                       <option value="Family">Family</option>
+                       <option value="Corporate">Corporate</option>
+                       <option value="VIP">VIP</option>
+                       <option value="Other" selected>Other</option>
+                 </select>
+            </div>
+            <div class="form-group">
+               <input type="text" ngModel name="telephone" class="form-control" id="telephone" placeholder="Telephone" required>
+            </div>
+            <div class="form-group">
+               <input type="text" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required>
+            </div>
+           
+           <div class="modal-footer">
+              <button type="button" id="user-booking-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Booking</button>
+           </div>
+           </form>
+         </div>
+      </div>
+    </div>
+    </div>
+
+
+    <!-- Notification for no restaurant -->
+    <div *ngIf="restaurants?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">NO RESTAURANTS!</h4>
+      <p>No Restaurants were found.</p>
+    </div>
+    </div>

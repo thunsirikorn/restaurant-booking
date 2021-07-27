@@ -1,0 +1,50 @@
+<div style="background-size: auto; 
+            background: url(https://media.cntraveler.com/photos/5b22bfdff04a775484b99dfc/master/pass/Alo-Restaurant__2018_Raffi-Photo-2.jpg);">
+    <br>
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div >
+            <h1 class="text-center">Sign in</h1>
+            <hr>
+        </div>
+        <div class="modal-body">
+            <form class="form col-md-12 center-block" name="signin" *ngIf="!isSignin" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+              <div class="form-group">
+                <input type="text" class="form-control input-lg" placeholder="Username: Email" name="email" [(ngModel)] = "signin.email" required #email="ngModel">
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
+                Email is required
+              </div>
+              <br>
+              <div class="form-group">
+                <input type="password" class="form-control input-lg" placeholder="Password" name="password" [(ngModel)]="signin.password" required minlength="6" #password="ngModel">
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+                <div *ngIf="password.errors.required">Password id required</div>
+                <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+              </div>
+              <br>
+              <div class="form-group" style="display: flex; justify-content: center;">
+               <button class="btn btn-info btn-block" >Sign in</button>&nbsp;
+              </div>
+              <br>
+              <div class="form-group">
+                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isSigninFailed">Sign in failed: {{ errorMessage }}</div>
+               </div>
+              <br><br>
+            </form>
+
+            <div class="alert alert-success" *ngIf="isSignin">Sign in as {{ roles }}</div>
+        </div>
+        
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>

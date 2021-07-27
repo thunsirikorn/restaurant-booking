@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="color:white; padding-left: 20px;"><h2>Restaurant Booking</h2></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02" >
+      <form class="form-inline my-2 my-lg-0" style="padding-left: 290px;">
+         <input type="search" (ngModelChange)="searchRestaurants(key.value)" #key="ngModel" ngModel
+          name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search Restaurants..." size="50"  required>
+      </form>
+
+       <ul class="navbar-nav mr-auto" style="padding-left: 170px;" *ngIf="!isSignin">
+          <li class="nav-item active">
+            <a [routerLink]="['/']" routerLinkActive="active" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item active">
+            <!-- <a class="nav-link" (click)="onOpenModal(null, 'signup')">Sign up</a> -->
+            <a [routerLink]="['/signup']" class="nav-link" >Sign up</a>
+          </li>
+          <li class="nav-item active">
+            <!-- <a class="nav-link" (click)="onOpenModal(null, 'signin')">Sign in</a> -->
+            <a [routerLink]="['/signin']" class="nav-link" >Sign in</a>
+         </li>
+
+         <li class="nav-item active" *ngIf="isSignin">
+          <a [routerLink]="['/']" routerLinkActive="active" class="nav-link">Home</a>
+         </li>
+
+       </ul>
+
+        <ul class="navbar-nav mr-auto" style="padding-left: 120px;" *ngIf="showAdmin">
+          <li class="nav-item active">
+            <a [routerLink]="['/restaurant']"  class="nav-link">Restaurant</a>
+          </li>
+          <li class="nav-item active">
+            <a [routerLink]="['/booking']"  class="nav-link">Booking</a>
+          </li>
+          <li class="nav-item active">
+            <a [routerLink]="['/user']"  class="nav-link">User</a>
+          </li>
+          <li class="nav-item active">
+            <a [routerLink]="['/profile']"  class="nav-link">Profile</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" (click)="signout()">Sign out</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto" style="padding-left: 120px;" *ngIf="showManager">
+          <li class="nav-item active">
+            <a [routerLink]="['/restaurant']"  class="nav-link">Restaurant</a>
+          </li>
+          <li class="nav-item active">
+            <a [routerLink]="['/booking']"  class="nav-link">Booking</a>
+          </li>
+          <li class="nav-item active">
+            <a [routerLink]="['/profile']"  class="nav-link">Profile</a>
+          </li>
+          <li class="nav-item active" >
+            <a class="nav-link" (click)="signout()">Sign out</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto" style="padding-left: 170px;" *ngIf="isSignin">
+          <li class="nav-item active">
+            <a [routerLink]="['/booking']"  class="nav-link">Booking</a>
+          </li>
+          <li class="nav-item active">
+            <a [routerLink]="['/profile']"  class="nav-link">Profile</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" (click)="signout()">Sign out</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto" style="padding-left: 200px;" *ngIf="isSignin">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="signout()">Sign out</a>
+          </li>
+        </ul>
+
+    </div>
+  </nav>

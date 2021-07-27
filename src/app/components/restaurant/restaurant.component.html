@@ -1,0 +1,284 @@
+<div class="container" id="main-container">
+    <div class="row">
+       
+        <div class="col-md-12 col-md-offset-1">
+
+            <div class="panel panel-default panel-table">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col col-xs-12">
+                    <h3 class="panel-title">Restaurant</h3>
+                  </div>
+                  <div class="col col-12" style="text-align:right;">
+                    <a style="text-decoration: none;">
+                        <button type="button" class="btn btn-sm btn-primary btn-create" (click)="onOpenModal(null, 'add')">Create New</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <table class="table table-striped table-bordered table-list" style="padding: 0px;">
+                  <thead>
+                    <tr style="text-align: center;">
+                        <th class="hidden-xs">ID</th>
+                        <th>Type</th>
+                        <th>Registration</th>
+                        <th>Branch</th>
+                        <th>Name</th>
+                        <th>District</th>
+                        <th>Province</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                        <th><em class="fa fa-cog"></em></th>
+                    </tr> 
+                  </thead>
+                  <tbody>
+                          
+                          <tr *ngFor="let restaurant of restaurants | 
+                                      paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalLength }" style="font-size: 14px;">
+                            <td class="hidden-xs" style="text-align: center;">{{restaurant?.resId}}</td>
+                            <td>{{restaurant?.resType}}</td>
+                            <td>{{restaurant?.registrationId}}</td>
+                            <td>{{restaurant?.resBranch}}</td>
+                            <td>{{restaurant?.resName}}</td>
+                            <td>{{restaurant?.district}}</td>
+                            <td>{{restaurant?.province}}</td>
+                            <td>{{restaurant?.resTelephone}}</td>
+                            <td>{{restaurant?.resEmail}}</td>
+                            <td>
+                              <a (click)="onOpenModal(restaurant, 'edit')" class="btn btn-default tooltips" data-placement="top" data-original-title="Edit"><em class="fa fa-pencil"></em> </a>
+                              <a (click)="onOpenModal(restaurant, 'delete')" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"><em class="fa fa-trash fa-xs"></em></a>
+                          
+                            </td>
+                          </tr>
+
+                    </tbody>
+                </table>
+
+                <br>
+                <pagination-controls class="text-right" (pageChange)="page = $event"></pagination-controls>
+            
+              </div>
+              <br>
+
+            </div>
+
+        </div>
+    </div>
+
+<!-- add Restaurant Modal -->
+<div class="modal fade" id="addRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="addRestaurantModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="addRestaurantModalLabel">Add New Restaurant</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddRestaurant(addForm)">
+          <div class="form-group">
+             <input type="text" ngModel name="resName" class="form-control" id="resName" placeholder="Restaurant Name" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="registrationId" class="form-control" id="registrationId" placeholder="Registration ID" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="resBranch" class="form-control" id="resBranch" placeholder="Restaurant Branch" required>
+          </div>
+          <div class="form-group">               
+              <label for="gender">Restaurant Type</label>
+              <select id="resType" ngModel name="resType" class="form-control"  required>
+                    <option value="Casual Dining restaurant">Casual Dining restaurant</option>
+                    <option value="Fine Dining restaurant">Fine Dining restaurant</option>
+                    <option value="Family Style restaurant">Family Style restaurant</option>
+                    <option value="Fast Casual restaurant">Fast Casual restaurant</option>
+                    <option value="Fast Food restaurant">Fast Food restaurant</option>
+                    <option value="Food Trucks">Food Trucks</option>   
+                    <option value="Pop-up restaurant">Pop-up restaurant</option>   
+                    <option value="Bar and Pubs">Bar and Pubs</option>   
+                    <option value="Cafe's">Cafe's</option>   
+                    <option value="Buffets">Buffets</option>
+                    <option value="Other">Other</option>
+              </select>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="address" class="form-control" id="address" placeholder="Restaurant Address" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="canton" class="form-control" id="canton" placeholder="Canton" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="district" class="form-control" id="canton" placeholder="District" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="province" class="form-control" id="province" placeholder="Province" required>
+          </div>
+          <div class="form-group">               
+              <input type="number" ngModel name="zipcode" class="form-control" id="zipcode" placeholder="Zipcode" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="resTelephone" class="form-control" id="resTelephone" placeholder="Telephone" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="resEmail" class="form-control" id="resEmail" placeholder="E-mail" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel name="resWebsite" class="form-control" id="resWebsite" placeholder="Website" required>
+          </div>
+          <div class="form-group">               
+              <input type="file" class="form-control"  (change)="onFileChanged($event)" required>
+              
+              <br>
+              <img *ngIf="image" [src]="image" height="250" width="450">
+          </div>
+          <div class="form-group">               
+              <textarea ngModel name="description" class="form-control" id="description" placeholder="Description" rows="5"></textarea>
+          </div>
+          <div class="form-group"> 
+              <label for="gender">Time Open</label>              
+              <input type="time" ngModel name="resOpen" class="form-control" id="resOpen" placeholder="Open TIme" required>
+          </div>
+          <div class="form-group">
+              <label for="gender">Time Close</label>                
+              <input type="time" ngModel name="resClose" class="form-control" id="resClose" placeholder="Close TIme" required>
+          </div>
+          
+          <div class="modal-footer">
+             <button type="button" id="add-restaurant-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Add</button>
+          </div>
+
+          <br>
+          </form>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- edit Restaurant Modal -->
+<div class="modal fade" id="updateRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="updateRestaurantModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="updateRestaurantModalLabel">Edit Restaurant</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body">
+          <form #editForm="ngForm">
+          <div class="form-group">
+             <input type="text" ngModel="{{editRestaurant?.resName}}" name="resName" class="form-control" id="resName" placeholder="Restaurant Name" required>
+          </div>
+          <input type="hidden" ngModel="{{editRestaurant?.resId}}" name="resId" class="form-control" id="resId" placeholder="resId">
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.registrationId}}" name="registrationId" class="form-control" id="registrationId" placeholder="Registration ID" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.resBranch}}" name="resBranch" class="form-control" id="resBranch" placeholder="Restaurant Branch" required>
+          </div>
+          <div class="form-group">               
+              <label for="gender">Restaurant Type</label>
+              <select id="resType" ngModel="{{editRestaurant?.resType}}" name="resType" class="form-control"  required>
+                <option value="{{editRestaurant?.resType}}">{{editRestaurant?.resType}}</option>
+                <option value="Casual Dining restaurant">Casual Dining restaurant</option>
+                <option value="Fine Dining restaurant">Fine Dining restaurant</option>
+                <option value="Family Style restaurant">Family Style restaurant</option>
+                <option value="Fast Casual restaurant">Fast Casual restaurant</option>
+                <option value="Fast Food restaurant">Fast Food restaurant</option>
+                <option value="Food Trucks">Food Trucks</option>   
+                <option value="Pop-up restaurant">Pop-up restaurant</option>   
+                <option value="Bar and Pubs">Bar and Pubs</option>   
+                <option value="Cafe's">Cafe's</option>   
+                <option value="Buffets">Buffets</option>
+                <option value="Other">Other</option>
+              </select>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.address}}" name="address" class="form-control" id="address" placeholder="Restaurant Address" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.canton}}" name="canton" class="form-control" id="canton" placeholder="Canton" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.district}}" name="district" class="form-control" id="canton" placeholder="District" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.province}}" name="province" class="form-control" id="province" placeholder="Province" required>
+          </div>
+          <div class="form-group">               
+              <input type="number" ngModel="{{editRestaurant?.zipcode}}" name="zipcode" class="form-control" id="zipcode" placeholder="Zipcode" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.resTelephone}}" name="resTelephone" class="form-control" id="resTelephone" placeholder="Telephone" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.resEmail}}" name="resEmail" class="form-control" id="resEmail" placeholder="E-mail" required>
+          </div>
+          <div class="form-group">               
+              <input type="text" ngModel="{{editRestaurant?.resWebsite}}" name="resWebsite" class="form-control" id="resWebsite" placeholder="Website" required>
+          </div>
+          <div class="form-group">               
+              <input type="file" (change)="onFileChanged($event)" class="form-control" required>
+              {{editRestaurant?.imageURL}}
+              
+              <br>
+              <img *ngIf="image" [src]="image" height="250" width="450">
+             
+          </div>
+          <div class="form-group">               
+              <textarea ngModel="{{editRestaurant?.description}}" name="description" class="form-control" id="description" placeholder="Description" rows="5"></textarea>
+          </div>
+          <div class="form-group"> 
+              <label for="gender">Time Open</label>              
+              <input type="time" ngModel="{{editRestaurant?.resOpen}}" name="resOpen" class="form-control" id="resOpen" placeholder="Open TIme" required>
+          </div>
+          <div class="form-group">
+              <label for="gender">Time Close</label>                
+              <input type="time" ngModel="{{editRestaurant?.resClose}}" name="resClose" class="form-control" id="resClose" placeholder="Close TIme" required>
+          </div>
+          
+          <div class="modal-footer">
+             <button type="button" id="" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button (click)="onUpdateRestaurant(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save</button>
+          </div>
+          </form>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="deleteModelLabel">Delete Restaurant</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Are you sure you want to delete Restaurant [ {{deleteRestaurant?.resName}} ] ?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button (click)="onDeleteRestaurant(deleteRestaurant?.resId)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+</div>
+
+<!-- Notification for no restaurant -->
+<div *ngIf="restaurants?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO RESTAURANTS!</h4>
+    <p>No Restaurants were found.</p>
+  </div>
+  </div>

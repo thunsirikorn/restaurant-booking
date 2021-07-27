@@ -1,0 +1,162 @@
+<div style="background-size: auto; 
+background: url(https://media.cntraveler.com/photos/5b22bfdff04a775484b99dfc/master/pass/Alo-Restaurant__2018_Raffi-Photo-2.jpg);">
+<div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-5">
+        <div class="card cardbox">
+          <div class="card-header" style="text-align: center; font-size: 30px;"><b>Sign up</b></div>
+          <div class="card-body">
+        
+                     
+            <div class="form-group">
+              
+              <form method="post" class="form" accept-charset="UTF-8" name="signup" *ngIf="!isSuccessful" (ngSubmit) = "f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                <div class="form-group">
+                  <label>Username <span style="color: red;">*</span></label>
+                  <input type="text" id="username" class="form-control"
+                  value="" placeholder="Username" required [(ngModel)]="signup.username" name="username" minlength="3" #username="ngModel">
+                
+                  <div class="alert-danger" *ngIf="username.errors && f.submitted">
+                    <div *ngIf="username.errors.required">Username is required</div>
+                    <div *ngIf="username.errors.minlength">Username must be at least 3 characters</div>
+                  </div>
+                
+                </div>
+                <br>
+
+                <!-- password group -->
+                <div class="form-group">
+                  <label>Password <span style="color: red;">*</span></label>
+                  <div class="input-group">
+                    <input type="password" id="password" class="form-control" data-placement="bottom" data-toggle="popover" data-container="body"
+                                  data-html="true" value="" placeholder="Password" required [(ngModel)]="signup.password" name="password" minlength="6" #password="ngModel">
+                    
+                    <div class="alert-danger" *ngIf="password.errors && f.submitted">
+                      <div *ngIf="password.errors.required">Password is required</div>
+                      <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+                    </div>
+                  </div>
+                </div>
+                  <br>
+                
+                <div class="form-group">
+                  <label>First name <span style="color: red;">*</span></label>
+                  <input type="text" id="firstname" class="form-control"
+                  value="" placeholder="First name" required [(ngModel)]="signup.firstname" name="firstname" minlength="3" #firstname="ngModel">
+                
+                  <div class="alert-danger" *ngIf="firstname.errors && f.submitted">
+                    <div *ngIf="firstname.errors.required">Firstname is required</div>
+                    <div *ngIf="firstname.errors.minlength">Firstname must be at least 3 characters</div>
+                  </div>
+                
+                </div>
+                <br>
+  
+                <div class="form-group">
+                  <label>Last name <span style="color: red;">*</span></label>
+                  <input type="text" id="lastname" class="form-control"
+                  value="" placeholder="Last name" required [(ngModel)]="signup.lastname" name="lastname" minlength="3" #lastname="ngModel">
+                
+                  <div class="alert-danger" *ngIf="lastname.errors && f.submitted">
+                    <div *ngIf="lastname.errors.required">Lastname is required</div>
+                    <div *ngIf="lastname.errors.minlength">Lastname must be at least 3 characters</div>
+                  </div>
+                
+                </div>
+                <br>
+  
+                <div class="form-group">
+                  <label>Birthday <span style="color: red;">*</span></label>
+                  <input type="date" id="birthday" class="form-control"
+                  value="" placeholder="" required [(ngModel)]="signup.birthday" name="birthday" #birthday="ngModel">
+  
+                  <div class="alert-danger" *ngIf="birthday.errors && f.submitted">
+                    <div *ngIf="birthday.errors.required">Birthday is required</div>
+                  </div>
+                </div>
+                <br>
+  
+                <div class="form-group">
+                  <label>Gender <span style="color: red;">*</span></label>
+  
+                  <select id="gender" class="form-control" required [(ngModel)]="signup.gender" name="gender" #gender="ngModel" >
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+  
+                  <div class="alert-danger" *ngIf="gender.errors && f.submitted">
+                    <div *ngIf="gender.errors.required">Gender is required</div>
+                  </div>
+                </div>
+                <br>
+  
+                <div class="form-group">
+                  <label>Telephone <span style="color: red;">*</span></label>
+                  <input type="text" id="telephone" class="form-control"
+                  value="" placeholder="Telephone" required [(ngModel)]="signup.telephone" name="telephone" #telephone="ngModel">
+  
+                  <div class="alert-danger" *ngIf="telephone.errors && f.submitted">
+                    <div *ngIf="telephone.errors.required">Telephone is required</div>
+                  </div>
+                </div>
+                <br>
+  
+                <!-- email group -->
+                <div class="form-group">
+                  <label>E-mail <span style="color: red;">*</span></label>
+                  <input type="email" id="email" class="form-control" 
+                                value="" placeholder="xxx@xxx.com" required [(ngModel)]="signup.email" name="email" email #email="ngModel">
+                
+                  <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                    <div *ngIf="email.errors.required">Email is required</div>
+                    <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                  </div>
+                </div>
+                <br>
+  
+  
+ <!--               <div class="form-group">
+                  <label>Role <span style="color: red;">*</span></label>
+  
+                  <select id="role" class="form-control" required [(ngModel)]="signup.role" name="role" #role="ngModel" >
+                    <option [value]="role" *ngFor="let role of roles" >{{role}}</option>
+                  </select>
+  
+                  <div class="alert-danger" *ngIf="role.errors && f.submitted">
+                    <div *ngIf="role.errors.required">Role is required</div>
+                  </div>
+                </div>
+                -->
+                <br>
+                <br>
+                  
+                <!-- Submit -->
+                <div class="form-group" style="display: flex; justify-content: center;">
+                  <button id="submit" name="submit"  class="btn btn-info">Sign up</button>
+                </div>
+  
+                <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+                  Signup failed! <br> {{ errorMessage }}
+                </div>
+               
+              </form>
+  
+                <div class="alert alert-success" *ngIf="isSuccessful">
+                  Your registration is successful!
+                </div>
+            </div>
+            
+            <div class="login-or"><hr class="hr-or"></div>
+                <!-- Links -->
+            <div class="bottom text-center">
+              If you are a user, please &nbsp;&nbsp; <a [routerLink]="['/signin']" routerLinkActive="active" style="text-decoration: none;">Sign in</a>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
